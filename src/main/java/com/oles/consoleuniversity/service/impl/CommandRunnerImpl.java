@@ -4,17 +4,13 @@ import com.oles.consoleuniversity.service.CommandRunnerService;
 import com.oles.consoleuniversity.service.strategy.CommandFactory;
 import com.oles.consoleuniversity.service.strategy.CommandType;
 import java.util.regex.Matcher;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CommandRunnerImpl implements CommandRunnerService {
     private final CommandFactory commandFactory;
-
-    @Autowired
-    public CommandRunnerImpl(CommandFactory commandFactory) {
-        this.commandFactory = commandFactory;
-    }
 
     public void runCommand(String input) {
         CommandType command = CommandType.getCommandType(input);
@@ -23,6 +19,6 @@ public class CommandRunnerImpl implements CommandRunnerService {
         while (m.find()) {
             userInputValue = m.group(2);
         }
-        commandFactory.findStrategy(command).runStrategy(userInputValue);
+        commandFactory.findStrategy(command).handle(userInputValue);
     }
 }

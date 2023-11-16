@@ -10,20 +10,17 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import lombok.With;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-@With
 @Entity
 @Table(name = "departments")
 public class Department {
@@ -34,6 +31,7 @@ public class Department {
     private String name;
 
     @OneToOne
+    @JoinColumn(name = "departments")
     private Lector head;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -41,5 +39,5 @@ public class Department {
         joinColumns = {@JoinColumn(name = "department_id")},
         inverseJoinColumns = {@JoinColumn(name = "lector_id")})
     @ToString.Exclude
-    private Set<Lector> lectors = new LinkedHashSet<>();
+    private Set<Lector> lectors;
 }

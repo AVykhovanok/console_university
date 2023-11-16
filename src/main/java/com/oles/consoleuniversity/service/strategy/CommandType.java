@@ -2,9 +2,10 @@ package com.oles.consoleuniversity.service.strategy;
 
 import java.util.Arrays;
 import java.util.regex.Pattern;
-
+import lombok.RequiredArgsConstructor;
 import static com.oles.consoleuniversity.utils.UtilsRegex.*;
 
+@RequiredArgsConstructor
 public enum CommandType {
     HEAD_OF_DEPARTMENT(HEAD_OF_DEPARTMENT_RGX),
     DEPARTMENT_STATISTICS(DEPARTMENT_STATISTICS_RGX),
@@ -17,14 +18,10 @@ public enum CommandType {
 
     private final Pattern patternType;
 
-    CommandType(Pattern pattern) {
-        this.patternType = pattern;
-    }
-
     public Pattern getCommandRgx(){
         return patternType;
-
     }
+
     public static CommandType getCommandType(String inputString){
         return Arrays.stream(CommandType.values())
             .filter(commandType -> commandType.patternType.matcher(inputString).matches())

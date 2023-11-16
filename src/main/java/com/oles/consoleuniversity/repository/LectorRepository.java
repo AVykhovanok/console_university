@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface LectorRepository extends JpaRepository<Lector, Long> {
     @Query("select distinct l "
         +  "from Lector l "
-        +  "where l.firstName like %:template% or l.lastName like :template")
+        +  "where l.firstName like %:template% or l.lastName like %:template%")
     List<Lector> getLectorByTemplate(String template);
-
 }

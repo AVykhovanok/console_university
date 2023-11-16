@@ -1,6 +1,6 @@
 package com.oles.consoleuniversity.service.strategy;
 
 public interface CommandStrategy {
-    void runStrategy(String userInput);
+    void handle(String userInput);
     CommandType getCommandType();
 }
